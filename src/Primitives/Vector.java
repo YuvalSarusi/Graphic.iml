@@ -95,7 +95,7 @@ public class Vector {
         );
     }
 
-    public Vector normalize(){
+    public Vector normalize() {
         return scale(Double.parseDouble(String.format("%.12f",(1/this.length()))));
     }
 
@@ -113,6 +113,7 @@ public class Vector {
             );
         }
     }
+
     public Vector subtract(Vector other){
         if (this.equals(other)) {
             throw new IllegalArgumentException("Vector can't be (0,0,0)");
@@ -126,8 +127,8 @@ public class Vector {
                     )
             );
         }
-
     }
+
     //return a vector that is vertical to both of the vectors
     public Vector crossProduct(Vector other){
         if (this.normalize().equals(other.normalize()) || this.normalize().equals(other.normalize().scale(-1)))
@@ -142,6 +143,15 @@ public class Vector {
                           this.getHeadPoint().getY().getPointValue() * other.getHeadPoint().getX().getPointValue()
           )
         );
+        /*
+        Vector v(x1,y1,z1)
+        Vector u(x2, y2, z2)
+        new Vector (
+            y1*z2 - z1*y2
+            z1*x2 - x1*z2
+            x1*y2 - x2*y1
+        )
+        */
     }
     //return a number that is the dot product (a number that is equals to: v1.length * v2.length * cos(angle))
     public double dotProduct(Vector vector){

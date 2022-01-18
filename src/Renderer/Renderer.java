@@ -14,7 +14,7 @@ public class Renderer {
 
     private Scene scene;
     private ImageWriter imageWriter;
-    private final int recursiveLevel = 3;
+    private static final int RECURSIVE_LEVEL = 3;
 
     public Renderer(Scene scene, ImageWriter imageWriter) {
         this.scene = new Scene(scene);
@@ -91,14 +91,14 @@ public class Renderer {
     private Color calcColor(GeoPoint geoPoint, Ray ray){
         Point3D point3D = geoPoint.getPoint3D();
         Geometries geometries = geoPoint.getGeometry();
-        return calcColor(geometries, point3D, ray, recursiveLevel);
+        return calcColor(geometries, point3D, ray, RECURSIVE_LEVEL);
     }
 
     private Color calcColor(Geometries geometries, Point3D point3D, Ray ray , int level){
         Color returnedColor = new Color(0,0,0);
         if (level != 0){
+            Color emissionLight = geometries.getEmission(); //gp.getGeo.getEm
             Color ambientLight = this.scene.getAmbientLight().getIntensity(point3D);
-            Color emissionLight = geometries.getEmission();
             Color diffuseLight = new Color(0,0,0);
             Color specularLight = new Color(0,0,0);
             Color reflectedLight = new Color(0,0,0);
@@ -134,7 +134,7 @@ public class Renderer {
                     reflectedLight = Helper.multiplyScalarColor(
                             calcReflect(ray,point3D,geometries.getNormal(point3D),level),
                             geometries.getMaterial().getKr()
-                );
+                    );
                 }
             }
             returnedColor =  Helper.calcAddingColors(
@@ -166,8 +166,8 @@ public class Renderer {
         );
         double scalar = Math.pow(gpToCamera.dotProduct(vectorR),shininess);
         return Helper.multiplyScalarColor(
-                lightIntensity,ks*scalar);
-
+                lightIntensity,ks*scalar
+        );
     }
 
     private boolean shaded(Light light,Vector l, Point3D point3D, Vector n){
@@ -185,11 +185,8 @@ public class Renderer {
         Vector v = inRay.getDirection();
         Vector r = new Vector(v.subtract(n.scale(-2*v.dotProduct(n))));
         Ray reflected = new Ray(point3D, r);
-
         List<GeoPoint> reflectIntersectionPoints = getSceneRayIntersections(reflected);
-
         Color returnColor = new Color(0,0,0);
-
         if (!reflectIntersectionPoints.isEmpty()){
             GeoPoint closestPoint = getClosestPoint(reflectIntersectionPoints, point3D);
             returnColor = calcColor(

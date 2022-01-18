@@ -96,16 +96,15 @@ public class Ball extends Geometries {
                             Math.pow(distance,2)
                         );
             double t1 = tm-th;
-            if (t1>0) {
+            if (t1> 0) {
                 Point3D point3D = new Point3D(cameraRay.getP00().add(cameraRay.getDirection().scale(t1)));
                 point3D.setX(Double.parseDouble(String.format("%.11f",point3D.getX().getPointValue())));
                 point3D.setY(Double.parseDouble(String.format("%.11f",point3D.getY().getPointValue())));
                 point3D.setZ(Double.parseDouble(String.format("%.11f",point3D.getZ().getPointValue())));
                 point3DList.add(new GeoPoint(point3D,this));
-
             }
             double t2 = tm+th;
-            if (t2 >0){
+            if (t2 > 0){
                 Point3D point3D = new Point3D(cameraRay.getP00().add(cameraRay.getDirection().scale(t2)));
                 point3D.setX(Double.parseDouble(String.format("%.11f",point3D.getX().getPointValue())));
                 point3D.setY(Double.parseDouble(String.format("%.11f",point3D.getY().getPointValue())));

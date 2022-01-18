@@ -122,9 +122,9 @@ public class Triangle extends Geometries{
         vectors[0] = this.getP1().subtract(cameraRay.getP00());
         vectors[1] = this.getP2().subtract(cameraRay.getP00());
         vectors[2] = this.getP3().subtract(cameraRay.getP00());
-        normals[0] = vectors[0].crossProduct(vectors[1]).normalize();
-        normals[1] = vectors[1].crossProduct(vectors[2]).normalize();
-        normals[2] = vectors[2].crossProduct(vectors[0]).normalize();
+        normals[0] = vectors[0].normalize().crossProduct(vectors[1]).normalize();
+        normals[1] = vectors[1].normalize().crossProduct(vectors[2]).normalize();
+        normals[2] = vectors[2].normalize().crossProduct(vectors[0]).normalize();
         if (this.checkPositiveNumbers(cameraRay.getDirection(),normals)){
             return geoPoint3DList;
         }

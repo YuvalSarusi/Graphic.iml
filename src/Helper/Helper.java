@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class Helper {
 
+
     public static final double ESP = 0.1;
     public static Point3D ZERO = new Point3D(0,0,0);
 
@@ -27,6 +28,9 @@ public class Helper {
         returnedColor = reduceColor(red, green, blue);
         return returnedColor;
     }
+
+
+
 
     public static Color reduceColor(int red, int green, int blue ){
         red = red > 255? 255 : red;
