@@ -38,6 +38,7 @@ public abstract class Geometries {
     }
 
     public void setMaterial(Material material) {
+        this.material = new Material();
         this.material.setKd(material.getKd());
         this.material.setKs(material.getKs());
         this.material.setNShininess(material.getNShininess());

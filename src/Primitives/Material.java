@@ -14,6 +14,13 @@ public class Material {
         this.kr = kr;
     }
 
+    public Material(){
+        this.kd = 1;
+        this.ks = 1;
+        this.nShininess = 5;
+        this.kr = 0;
+    }
+
     public int getnShininess() {
         return nShininess;
     }

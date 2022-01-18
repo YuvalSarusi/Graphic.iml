@@ -155,15 +155,20 @@ public class Renderer {
     }
 
     private Color calcSpecularColor(double ks, Vector gpToCamera, Vector normal,Vector lightVector, int shininess, Color lightIntensity ){
-        Vector vectorR = new Vector(
-                lightVector.subtract(
-                        normal.scale(
-                            2 * lightVector.dotProduct(
-                                    normal
+        Vector vectorR;
+        if (lightVector.dotProduct(normal) != 0){
+            vectorR = new Vector(
+                    lightVector.subtract(
+                            normal.scale(
+                                    2 * lightVector.dotProduct(
+                                            normal
+                                    )
                             )
-                        )
-                ).normalize()
-        );
+                    ).normalize());
+        }
+        else{
+            vectorR = new Vector(lightVector);
+        }
         double scalar = Math.pow(gpToCamera.dotProduct(vectorR),shininess);
         return Helper.multiplyScalarColor(
                 lightIntensity,ks*scalar

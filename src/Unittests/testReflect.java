@@ -5,6 +5,7 @@ import Elements.Camera;
 import Elements.PointLight;
 import Elements.SpotLight;
 import Geometries.Ball;
+import Geometries.Surface;
 import Geometries.Triangle;
 import Primitives.Material;
 import Primitives.Point3D;
@@ -71,6 +72,35 @@ public class testReflect {
         scene.addLight(new PointLight(new Color(255, 100, 100), new Point3D(0, 200, 0),0.000005 , 0, 0.0000001));
 
         ImageWriter imageWriter = new ImageWriter("reflect ball", 500, 500, 500, 500);
+
+        Renderer render = new Renderer(scene, imageWriter);
+
+        render.renderImage();
+    }
+
+
+    @Test
+    public void surfaceTriangle(){
+        Scene scene = new Scene("surfaceTriangle");
+        scene.setBackgroundColor(new Color(0, 0, 0));
+        scene.setSceneCamera(new Camera( new Point3D(0, 0, 0),new Vector(0.0, 0.0, 1.0),new Vector(0,-1, 0.0)));
+        scene.setScreenDistance(100);
+        scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+
+        Surface surface = new Surface(new Point3D(0,0,400),new Vector(0,0,1));
+        surface.setMaterial(new Material(1,1,20,1));
+
+        Triangle triangle = new Triangle(
+                new Point3D(-230,30,200),
+                new Point3D(-170,30,200),
+                new Point3D(-200,-30,200)
+        );
+        triangle.setMaterial(new Material(1,1,20,0));
+
+        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(200, 0, 200),0.000005 , 0, 0.0000001,new Vector(-100,0,200)));
+        scene.addGeometry(triangle);
+        scene.addGeometry(surface);
+        ImageWriter imageWriter = new ImageWriter("reflect mirror", 500, 500, 500, 500);
 
         Renderer render = new Renderer(scene, imageWriter);
 
